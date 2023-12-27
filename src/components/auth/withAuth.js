@@ -21,8 +21,12 @@ const withAuth = (WrappedComponent) => {
     } else if (!loggedIn) {
       return (
         <>
+          <div className='w-11/12 max-w-2xl mx-auto mt-8'>
+            <p className='h-8 text-red-400'>
+              You need to login to view this page.
+            </p>
+          </div>
           <Login />
-          <p>You need to login to view this page.</p>
         </>
       );
     } else {
