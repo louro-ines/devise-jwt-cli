@@ -4,6 +4,7 @@ import NormalRoute from './components/NormalRoute';
 import ProtectedRoute from './components/ProtectedRoute';
 import Signup from './components/auth/Signup';
 import Login from './components/auth/Login';
+import withAuth from './components/auth/withAuth';
 
 function App() {
   return (
@@ -11,10 +12,14 @@ function App() {
       <Router>
         <Navbar />
         <Routes>
-          <Route exact path='/' component={NormalRoute} />
-          <Route exact path='/protected_route' component={ProtectedRoute} />
-          <Route exact path='/signup' component={Signup} />
-          <Route exact path='/login' component={Login} />
+          <Route exact path='/' Component={NormalRoute} />
+          <Route
+            exact
+            path='/protected_route'
+            Component={withAuth(ProtectedRoute)}
+          />
+          <Route exact path='/signup' Component={Signup} />
+          <Route exact path='/login' Component={Login} />
         </Routes>
       </Router>
     </div>
