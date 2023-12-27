@@ -89,3 +89,26 @@ export const logoutUser = () => {
     });
   };
 };
+
+export const checkAuth = () => {
+  return (dispatch) => {
+    return fetch('http://localhost:4000/current_user', {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: getToken(),
+      },
+    }).then((res) => {
+      if (res.ok) {
+        return res
+          .json()
+          .then((user) => dispatch({ type: AUTHENTICATED, payload: user }));
+      } else if (res.status === 401) {
+        dispatch({ type: NOT_AUTHENTICATED });
+        return Promise.resolve(null); // Resolve with null when not authenticated
+      } else {
+        return Promise.reject(new Error('Error during authentication'));
+      }
+    });
+  };
+};
